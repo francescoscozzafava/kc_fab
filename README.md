@@ -40,7 +40,15 @@ var links = [
                     "color":"white",
                     "icon":"<i class='fa fa-music'></i>",
                     "id":"id_item"
-                }
+                }, /*ADDED NEW CONFIGURATION OPTION, 'fn' that take the name of the function declared in the global scope*/
+                    {
+                        "url":"http://www.example.com",
+                        "bgcolor":"blue",
+                        "color":"white",
+                        "icon":"<i class='fa fa-code-fork' aria-hidden='true'></i>",
+                        "title":"Javascript function Hey again, Click!",
+                        "fn":"clickfunction"
+                    }
             ]
 $('.kc_fab_wrapper').kc_fab(links);
 ```
