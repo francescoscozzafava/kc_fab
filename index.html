@@ -12,8 +12,12 @@
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="dist/js/kc.fab.min.js"></script>
+       <script src="dist/js/kc.fab.min.js"></script>
+         <!-- <script src="dist/js/kc.fab.js"></script>-->
         <script>
+            var clickfunction = function(){
+                alert('JsFunctionInjected');
+            }
             $(document).ready(function(){
                 var links = [
                     {
@@ -35,6 +39,14 @@
                         "color":"white",
                         "icon":"<i class='fa fa-music'></i>",
                         "title":"Hey again, Click!"
+                    },
+                    {
+                        "url":"http://www.example.com",
+                        "bgcolor":"blue",
+                        "color":"white",
+                        "icon":"<i class='fa fa-code-fork' aria-hidden='true'></i>",
+                        "title":"Javascript function Hey again, Click!",
+                        "fn":"clickfunction"
                     }
                 ]
                 $('.kc_fab_wrapper').kc_fab(links);

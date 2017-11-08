@@ -1,0 +1,25 @@
+{
+  "name": "kc_fab",
+  "version": "1.0.0",
+  "description": "KC FAB is a jQuery plugin to create materialize floating action button easily.",
+  "main": "index.js",
+  "dependencies": {
+    "bower-min": "^1.0.0",
+    "gulp-js-minify": "^0.0.3",
+    "gulp-rename": "^1.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alldone/kc_fab.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alldone/kc_fab/issues"
+  },
+  "homepage": "https://github.com/alldone/kc_fab#readme"
+}

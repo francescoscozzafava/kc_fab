@@ -73,8 +73,11 @@
                     if( typeof(base.links[i].id) != "undefined" ){
                         id_elem = "id='"+base.links[i].id+"'";
                     }
-                    sub_fab_btns_dom += "<div><button "+id_elem+" data-link-title='"+base.links[i].title+"' data-link-href='"+(base.links[i].url?base.links[i].url:"")+"' data-link-target='"+((base.links[i].target)?base.links[i].target:"")+"' class='sub_fab_btn' style='"+bg_color_style+"'><span style='"+color_style+"'>"+base.links[i].icon+"</span></button></div>";
-                    
+                    if(base.links[i].fn){
+                        sub_fab_btns_dom += "<div><button "+id_elem+" onclick='"+base.links[i].fn+"();' class='sub_fab_btn' style='"+bg_color_style+"'><span style='"+color_style+"'>"+base.links[i].icon+"</span></button></div>";
+                    }else{
+                        sub_fab_btns_dom += "<div><button "+id_elem+" data-link-title='"+base.links[i].title+"' data-link-href='"+(base.links[i].url?base.links[i].url:"")+"' data-link-target='"+((base.links[i].target)?base.links[i].target:"")+"' class='sub_fab_btn' style='"+bg_color_style+"'><span style='"+color_style+"'>"+base.links[i].icon+"</span></button></div>";
+                    }
                 };
                 sub_fab_btns_dom = "<div class='sub_fab_btns_wrapper'>"+sub_fab_btns_dom+"</div>";
                 base.$el.append(sub_fab_btns_dom).append(main_btn_dom);
@@ -137,14 +140,18 @@
             });
 
             sub_fab_btns.find('.sub_fab_btn').on('mousedown', function(e){
-                if ($(this).attr('data-link-href').length > 0){
+                
+                if ($(this).attr('data-link-href') && $(this).attr('data-link-href').length > 0){
                     if ($(this).attr('data-link-target')){
                         window.open($(this).attr('data-link-href'), $(this).attr('data-link-target'));
                     }else{
                         window.location.href = $(this).attr('data-link-href');
                     }
+                }else{
+                    if ($(this).click !== undefined){
+                        $(this).click();
+                    }
                 }
-
             });
 
             main_fab_btn.focusout(function(){

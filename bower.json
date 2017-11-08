@@ -7,7 +7,7 @@
   ],
   "description": "jQuery plugin to create materialize floating action button easily",
   "main": [
-    "dist/js/kc.fab.min.js",
+    "dist/js/kc.fab.js",
     "dist/css/kc.fab.css"
   ],
   "moduleType": [
