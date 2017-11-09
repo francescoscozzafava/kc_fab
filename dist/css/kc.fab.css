@@ -56,7 +56,7 @@
   pointer-events: none;
   position: absolute;
   right: 110%;
-  min-width: 150px;
+  min-width: 350px;
 }
 .sub_fab_btns_wrapper.show{
   display:block;
