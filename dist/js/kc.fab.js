@@ -78,7 +78,7 @@
                     }
                     if (base.links[i].fn) {
                         sub_fab_btns_dom += 
-                         "<div><button " + id_elem + 
+                         "<div><button  type='button' " + id_elem + 
                          "  data-link-title='" + base.links[i].title +
                          "' onclick='" + base.links[i].fn + "();' "+
                          "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") +  (base.links[i].cssClass ? " "+base.links[i].cssClass : "") +
@@ -86,7 +86,7 @@
                          "</button></div>";
                     } else {
                         sub_fab_btns_dom += 
-                        "<div><button " + id_elem + 
+                        "<div><button type='button' " + id_elem + 
                         " data-link-title='" + base.links[i].title + 
                         "' data-link-href='" + (base.links[i].url ? base.links[i].url : "") + 
                         "' data-link-target='" + ((base.links[i].target) ? base.links[i].target : "") + "' "+
