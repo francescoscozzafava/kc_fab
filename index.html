@@ -14,6 +14,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="dist/js/kc.fab.min.js"></script>
       <!--   <script src="dist/js/kc.fab.js"></script>-->
+      <style>
+
+          /*these classes are here for example......*/
+            .btn{
+                display: block;
+                margin : 7px 7px;
+            }
+            .btn-primary{
+                    background-color: rgb(55, 0, 255);                   
+            }
+      </style>
         <script>
             var clickfunction = function(){
                 alert('JsFunctionInjected');
@@ -35,12 +46,15 @@
                     },
                     {
                         "url":"http://www.example.com",
-                        "bgcolor":"black",
+                        //"bgcolor":"black", //in this case there's a fallback color (previously in the css now in the script to mitigate cssClass effects)
                         "color":"white",
                         "icon":"<i class='fa fa-music'></i>",
                         "title":"Hey again, Click!"
                     }
-                    , /*ADDED NEW CONFIGURATION OPTION, 'fn' that take the name of the function declared in the global scope*/
+                    , /*ADDED:
+                    1) NEW CONFIGURATION OPTION, 'fn' that take the name of the function declared in the global scope
+                    2) NEW CONFIGURATION OPTION, 'alwaysOn' that set new style that make always visible the title
+                    3) NEW CONFIGURATION OPTION, 'cssClass' that bring into component existing style like bootstrap , if you use this, bgcolor doesn't have effect on the button */
                     {
                         "url":"http://www.example.com",
                         "bgcolor":"blue",
@@ -48,7 +62,8 @@
                         "icon":"<i class='fa fa-code-fork' aria-hidden='true'></i>",
                         "title":"Javascript function Hey again, Click!",
                         "fn":"clickfunction",
-                        "titleAlwaysOn" :true
+                        "titleAlwaysOn" :true,
+                        "cssClass":"btn btn-primary"
                     }
                 ]
                 $('.kc_fab_wrapper').kc_fab(links);

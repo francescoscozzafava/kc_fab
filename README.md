@@ -43,15 +43,18 @@ var links = [
                 }
                 , /*ADDED:
                  1) NEW CONFIGURATION OPTION, 'fn' that take the name of the function declared in the global scope
-                 2) NEW CONFIGURATION OPTION, 'alwaysOn' that set new style that make always visible the title*/
+                 2) NEW CONFIGURATION OPTION, 'alwaysOn' that set new style that make always visible the title
+                 3) NEW CONFIGURATION OPTION, 'cssClass' that bring into component existing style like bootstrap , if you use this, bgcolor doesn't have effect on the button */
+
                     {
                         "url":"http://www.example.com",
-                        "bgcolor":"blue",
+                        "bgcolor":"blue",//<--- '' if cssClass
                         "color":"white",
                         "icon":"<i class='fa fa-code-fork' aria-hidden='true'></i>",
                         "title":"Javascript function Hey again, Click!",
                         "fn":"clickfunction",
-                        "titleAlwaysOn":true
+                        "titleAlwaysOn":true,
+                        "cssClass":'btn btn-primary'
                     }
             ]
 $('.kc_fab_wrapper').kc_fab(links);

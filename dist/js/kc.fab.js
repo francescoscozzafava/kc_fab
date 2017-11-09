@@ -66,7 +66,7 @@
                 /* Loop through the remaining links array */
                 for (var i = 0; i < base.links.length; i++) {
                     color_style = (base.links[i].color) ? "color:" + base.links[i].color + ";" : "";
-                    bg_color_style = (base.links[i].bgcolor) ? "background-color:" + base.links[i].bgcolor + ";" : "";
+                    bg_color_style = (base.links[i].bgcolor) ? ( "background-color:" + base.links[i].bgcolor +";") : "background:#F44336;";
 
                     //get element ID if exists
                     id_elem = "";
@@ -74,9 +74,22 @@
                         id_elem = "id='" + base.links[i].id + "'";
                     }
                     if (base.links[i].fn) {
-                        sub_fab_btns_dom += "<div><button " + id_elem + "  data-link-title='" + base.links[i].title + "' onclick='" + base.links[i].fn + "();' class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") + "' style='" + bg_color_style + "'><span style='" + color_style + "'>" + base.links[i].icon + "</span></button></div>";
+                        sub_fab_btns_dom += 
+                         "<div><button " + id_elem + 
+                         "  data-link-title='" + base.links[i].title +
+                         "' onclick='" + base.links[i].fn + "();' "+
+                         "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") +  (base.links[i].cssClass ? " "+base.links[i].cssClass : "") +
+                         "' "+(base.links[i].cssClass ? "":" style='" + bg_color_style + "'")  +" ><span style='" + color_style + "'>" + base.links[i].icon + "</span>"+
+                         "</button></div>";
                     } else {
-                        sub_fab_btns_dom += "<div><button " + id_elem + " data-link-title='" + base.links[i].title + "' data-link-href='" + (base.links[i].url ? base.links[i].url : "") + "' data-link-target='" + ((base.links[i].target) ? base.links[i].target : "") + "' class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") + "' style='" + bg_color_style + "'><span style='" + color_style + "'>" + base.links[i].icon + "</span></button></div>";
+                        sub_fab_btns_dom += 
+                        "<div><button " + id_elem + 
+                        " data-link-title='" + base.links[i].title + 
+                        "' data-link-href='" + (base.links[i].url ? base.links[i].url : "") + 
+                        "' data-link-target='" + ((base.links[i].target) ? base.links[i].target : "") + "' "+
+                        "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") + (base.links[i].cssClass ? " "+base.links[i].cssClass : "") + 
+                        "' "+(base.links[i].cssClass ? "":" style='" + bg_color_style + "'")  +" ><span style='" + color_style + "'>" + base.links[i].icon + "</span>"+
+                        "</button></div>";
                     }
                 };
                 sub_fab_btns_dom = "<div class='sub_fab_btns_wrapper'>" + sub_fab_btns_dom + "</div>";
