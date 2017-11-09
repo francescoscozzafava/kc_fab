@@ -1,3 +1,4 @@
+
 /*===================================================================
 =            KC.FAB : Materialize Floating Action Button            =
 ===================================================================*/
@@ -9,8 +10,10 @@
  * @author: Mark Luk
  * @version: 1.0
  * @date: 18/3/2015
+ * 
+ * @modifier: AllDone
+ * @date: 09/11/2017
  */
-
 (function ($) {
     if (!$.kc) {
         $.kc = new Object();
