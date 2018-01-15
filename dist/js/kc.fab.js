@@ -84,7 +84,7 @@
                         sub_fab_btns_dom += 
                          "<div><button "+extra_data +" type='button' " + id_elem + 
                          "  data-link-title='" + base.links[i].title +
-                         "' onclick='" + base.links[i].fn + "();' "+
+                         "' onclick='" + base.links[i].fn + "(this);' "+
                          "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") +  (base.links[i].cssClass ? " "+base.links[i].cssClass : "") +
                          "' "+(base.links[i].cssClass ? "":" style='" + bg_color_style + "'")  +" ><span style='" + color_style + "'>" + base.links[i].icon + "</span>"+
                          "</button></div>";
