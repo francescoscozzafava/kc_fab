@@ -76,9 +76,13 @@
                     if (typeof (base.links[i].id) != "undefined") {
                         id_elem = "id='" + base.links[i].id + "'";
                     }
+                    var extra_data='';
+                    if(base.links[i].extraData){
+                        extra_data=" data-extra="+base.links[i].extraData+" ";
+                    }
                     if (base.links[i].fn) {
                         sub_fab_btns_dom += 
-                         "<div><button  type='button' " + id_elem + 
+                         "<div><button "+extra_data +" type='button' " + id_elem + 
                          "  data-link-title='" + base.links[i].title +
                          "' onclick='" + base.links[i].fn + "();' "+
                          "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") +  (base.links[i].cssClass ? " "+base.links[i].cssClass : "") +
@@ -86,7 +90,7 @@
                          "</button></div>";
                     } else {
                         sub_fab_btns_dom += 
-                        "<div><button type='button' " + id_elem + 
+                        "<div><button "+ extra_data +" type='button' " + id_elem + 
                         " data-link-title='" + base.links[i].title + 
                         "' data-link-href='" + (base.links[i].url ? base.links[i].url : "") + 
                         "' data-link-target='" + ((base.links[i].target) ? base.links[i].target : "") + "' "+
