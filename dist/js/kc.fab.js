@@ -18,7 +18,12 @@
     if (!$.kc) {
         $.kc = new Object();
     };
-
+//Render model into string template  
+String.prototype.render = function (model) {
+    return this.replace(/{{(.+?)}}/g, function (m, p1) {
+        return model[p1]
+    });
+};
     $.kc.fab = function (el, links, options) {
         // To avoid scope issues, use 'base' instead of 'this'
         // to reference this class from internal events and functions.
@@ -66,6 +71,8 @@
 
                 sub_fab_btns_dom = "";
                 base.links.shift();
+                var  sub_fab_btns_domContainer =$("<div>");
+                sub_fab_btns_domContainer.addClass('sub_fab_btns_wrapper');
                 /* Loop through the remaining links array */
                 for (var i = 0; i < base.links.length; i++) {
                     color_style = (base.links[i].color) ? "color:" + base.links[i].color + ";" : "";
@@ -84,37 +91,85 @@
                     if(base.links[i].disabled !==null && typeof base.links[i].disabled !=='undefined' && base.links[i].disabled){
                         disabled=" disabled ";
                     }
-                    var thisEl="(this)";
-                    if(base.links[i].onlyEvent){
-                        thisEl="(event)";
+                    
+
+                    var templateDiv=$("<div>");
+                    var templateButton=$("<button>");
+                    var templateSpan =$("<span>");
+                    templateButton.attr('id',base.links[i].id);
+                    templateButton.attr('type','button');
+                    if(base.links[i].disabled !==null && typeof base.links[i].disabled !=='undefined' && base.links[i].disabled){                         
+                        templateButton.attr('disabled','disabled');
                     }
-                    if(base.links[i].onlyThis){
-                        thisEl="(this)";
+                    templateButton.attr('data-link-title', base.links[i].title);
+                    templateButton.addClass('sub_fab_btn');
+                    if(base.links[i].titleAlwaysOn){
+                        templateButton.addClass('always');
                     }
-                    if(base.links[i].eventAndThis){
-                        thisEl="(event,this)";
+                    if(base.links[i].cssClass){
+                        var classes=base.links[i].cssClass.split(' ');
+                        for(var u=0;u<classes.length;u++)
+                        {
+                            templateButton.addClass(classes[u]);
+                        }
                     }
-                    if (base.links[i].fn) {
-                        sub_fab_btns_dom += 
-                         "<div><button "+extra_data +" type='button' "+disabled+" " + id_elem + 
-                         "  data-link-title='" + base.links[i].title +
-                         "' onclick='" + base.links[i].fn +thisEl+ ";' "+
-                         "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") +  (base.links[i].cssClass ? " "+base.links[i].cssClass : "") +
-                         "' "+(base.links[i].cssClass ? "":" style='" + bg_color_style + "'")  +" ><span style='" + color_style + "'>" + base.links[i].icon + "</span>"+
-                         "</button></div>";
-                    } else {
-                        sub_fab_btns_dom += 
-                        "<div><button "+ extra_data +" type='button'  "+disabled+" " + id_elem + 
-                        " data-link-title='" + base.links[i].title + 
-                        "' data-link-href='" + (base.links[i].url ? base.links[i].url : "") + 
-                        "' data-link-target='" + ((base.links[i].target) ? base.links[i].target : "") + "' "+
-                        "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") + (base.links[i].cssClass ? " "+base.links[i].cssClass : "") + 
-                        "' "+(base.links[i].cssClass ? "":" style='" + bg_color_style + "'")  +" ><span style='" + color_style + "'>" + base.links[i].icon + "</span>"+
-                        "</button></div>";
+                    if(base.links[i].bgcolor){
+                        templateButton.css('background-color',base.links[i].bgcolor);
                     }
+
+                    templateSpan.css('color',(base.links[i].color?base.links[i].color:'black'));
+                    if( base.links[i].icon){
+                        templateSpan.append(base.links[i].icon);
+                    }
+                    templateButton.append(templateSpan);
+                    if (base.links[i].innerFn) {
+                        templateButton.click(base.links[i].innerFn);
+                    }else{
+                        if (base.links[i].fn) {
+                            var thisEl="(this)";
+                            if(base.links[i].onlyEvent){
+                                thisEl="(event)";
+                            }
+                            if(base.links[i].onlyThis){
+                                thisEl="(this)";
+                            }
+                            if(base.links[i].eventAndThis){
+                                thisEl="(event,this)";
+                            }
+                            templateButton.attr('onclick', base.links[i].fn +thisEl);
+                        }else{
+                            templateButton.attr('data-link-href',(base.links[i].url ? base.links[i].url : ""));
+                            templateButton.attr('data-link-target',((base.links[i].target) ? base.links[i].target : ""));
+                        }
+                    }
+                    templateDiv.append(templateButton);
+                    sub_fab_btns_domContainer.append(templateDiv);
+                    // if (base.links[i].fn) {
+                    //     sub_fab_btns_dom += 
+                    //      "<div><button "+extra_data +" type='button' "+disabled+" " + id_elem + 
+                    //      "  data-link-title='" + base.links[i].title +
+                    //      "' onclick='" + base.links[i].fn +thisEl+ ";' "+
+                    //      "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") + 
+                    //       (base.links[i].cssClass ? " "+base.links[i].cssClass : "") +
+                    //      "' "+(base.links[i].cssClass ? "":" style='" + bg_color_style + "'")  
+                    //      +" ><span style='" + color_style + "'>" + base.links[i].icon + "</span>"+
+                    //      "</button></div>";
+                    // } else {
+                    //     sub_fab_btns_dom += 
+                    //     "<div><button "+ extra_data +" type='button'  "+disabled+" " + id_elem + 
+                    //     " data-link-title='" + base.links[i].title + 
+                    //     "' data-link-href='" + (base.links[i].url ? base.links[i].url : "") + 
+                    //     "' data-link-target='" + ((base.links[i].target) ? base.links[i].target : "") + "' "+
+                    //     "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") + 
+                    //     (base.links[i].cssClass ? " "+base.links[i].cssClass : "") + 
+                    //     "' "+(base.links[i].cssClass ? "":" style='" + bg_color_style + "'") 
+                    //      +" ><span style='" + color_style + "'>" + base.links[i].icon + "</span>"+
+                    //     "</button></div>";
+                    // }
+                    //qui append
                 };
-                sub_fab_btns_dom = "<div class='sub_fab_btns_wrapper'>" + sub_fab_btns_dom + "</div>";
-                base.$el.append(sub_fab_btns_dom).append(main_btn_dom);
+               
+                base.$el.append(sub_fab_btns_domContainer).append(main_btn_dom);
 
             } else {
                 if (typeof console == "undefined") {
