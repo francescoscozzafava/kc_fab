@@ -18,12 +18,7 @@
     if (!$.kc) {
         $.kc = new Object();
     };
-//Render model into string template  
-String.prototype.render = String.prototype.render || function (model) {
-    return this.replace(/{{(.+?)}}/g, function (m, p1) {
-        return model[p1]
-    });
-};
+
     $.kc.fab = function (el, links, options) {
         // To avoid scope issues, use 'base' instead of 'this'
         // to reference this class from internal events and functions.
@@ -71,75 +66,82 @@ String.prototype.render = String.prototype.render || function (model) {
 
                 sub_fab_btns_dom = "";
                 base.links.shift();
-                var  sub_fab_btns_domContainer =$("<div>");
+                var sub_fab_btns_domContainer = $("<div>");
                 sub_fab_btns_domContainer.addClass('sub_fab_btns_wrapper');
                 /* Loop through the remaining links array */
                 for (var i = 0; i < base.links.length; i++) {
                     color_style = (base.links[i].color) ? "color:" + base.links[i].color + ";" : "";
-                    bg_color_style = (base.links[i].bgcolor) ? ( "background-color:" + base.links[i].bgcolor +";") : "background:#F44336;";
+                    bg_color_style = (base.links[i].bgcolor) ? ("background-color:" + base.links[i].bgcolor + ";") : "background:#F44336;";
 
                     //get element ID if exists
                     id_elem = "";
                     if (typeof (base.links[i].id) != "undefined") {
                         id_elem = "id='" + base.links[i].id + "'";
                     }
-                    var extra_data='';
-                    if(base.links[i].extraData){
-                        extra_data=" data-extra="+base.links[i].extraData+" ";
+                    var extra_data = '';
+                    if (base.links[i].extraData) {
+                        extra_data = " data-extra=" + base.links[i].extraData + " ";
                     }
-                    var disabled='';
-                    if(base.links[i].disabled !==null && typeof base.links[i].disabled !=='undefined' && base.links[i].disabled){
-                        disabled=" disabled ";
+                    var disabled = '';
+                    if (base.links[i].disabled !== null && typeof base.links[i].disabled !== 'undefined' && base.links[i].disabled) {
+                        disabled = " disabled ";
                     }
-                    
 
-                    var templateDiv=$("<div>");
-                    var templateButton=$("<button>");
-                    var templateSpan =$("<span>");
-                    templateButton.attr('id',base.links[i].id);
-                    templateButton.attr('type','button');
-                    if(base.links[i].disabled !==null && typeof base.links[i].disabled !=='undefined' && base.links[i].disabled){                         
-                        templateButton.attr('disabled','disabled');
+
+                    var templateDiv = $("<div>");
+                    var templateButton = $("<button>");
+                    var templateSpan = $("<span>");
+                    templateButton.attr('id', base.links[i].id);
+                    templateButton.attr('type', 'button');
+                    if (base.links[i].disabled !== null && typeof base.links[i].disabled !== 'undefined' && base.links[i].disabled) {
+                        templateButton.attr('disabled', 'disabled');
                     }
                     templateButton.attr('data-link-title', base.links[i].title);
                     templateButton.addClass('sub_fab_btn');
-                    if(base.links[i].titleAlwaysOn){
+                    if (base.links[i].titleAlwaysOn) {
                         templateButton.addClass('always');
                     }
-                    if(base.links[i].cssClass){
-                        var classes=base.links[i].cssClass.split(' ');
-                        for(var u=0;u<classes.length;u++)
-                        {
+                    if (base.links[i].cssClass) {
+                        var classes = base.links[i].cssClass.split(' ');
+                        for (var u = 0; u < classes.length; u++) {
                             templateButton.addClass(classes[u]);
                         }
                     }
-                    if(base.links[i].bgcolor){
-                        templateButton.css('background-color',base.links[i].bgcolor);
+                    if (base.links[i].bgcolor) {
+                        templateButton.css('background-color', base.links[i].bgcolor);
                     }
 
-                    templateSpan.css('color',(base.links[i].color?base.links[i].color:'black'));
-                    if( base.links[i].icon){
+                    templateSpan.css('color', (base.links[i].color ? base.links[i].color : 'black'));
+                    if (base.links[i].icon) {
                         templateSpan.append(base.links[i].icon);
                     }
                     templateButton.append(templateSpan);
                     if (base.links[i].innerFn) {
-                        templateButton.click(base.links[i].innerFn);
-                    }else{
+                        if (typeof base.links[i].innerFn === 'string')
+                            try {
+                                templateButton.click(eval(base.links[i].innerFn));
+                            } catch (e) {
+
+                            }
+                        else {
+                            templateButton.click(base.links[i].innerFn);
+                        }
+                    } else {
                         if (base.links[i].fn) {
-                            var thisEl="(this)";
-                            if(base.links[i].onlyEvent){
-                                thisEl="(event)";
+                            var thisEl = "(this)";
+                            if (base.links[i].onlyEvent) {
+                                thisEl = "(event)";
                             }
-                            if(base.links[i].onlyThis){
-                                thisEl="(this)";
+                            if (base.links[i].onlyThis) {
+                                thisEl = "(this)";
                             }
-                            if(base.links[i].eventAndThis){
-                                thisEl="(event,this)";
+                            if (base.links[i].eventAndThis) {
+                                thisEl = "(event,this)";
                             }
-                            templateButton.attr('onclick', base.links[i].fn +thisEl);
-                        }else{
-                            templateButton.attr('data-link-href',(base.links[i].url ? base.links[i].url : ""));
-                            templateButton.attr('data-link-target',((base.links[i].target) ? base.links[i].target : ""));
+                            templateButton.attr('onclick', base.links[i].fn + thisEl);
+                        } else {
+                            templateButton.attr('data-link-href', (base.links[i].url ? base.links[i].url : ""));
+                            templateButton.attr('data-link-target', ((base.links[i].target) ? base.links[i].target : ""));
                         }
                     }
                     templateDiv.append(templateButton);
@@ -168,7 +170,7 @@ String.prototype.render = String.prototype.render || function (model) {
                     // }
                     //qui append
                 };
-               
+
                 base.$el.append(sub_fab_btns_domContainer).append(main_btn_dom);
 
             } else {
@@ -238,14 +240,14 @@ String.prototype.render = String.prototype.render || function (model) {
                     }
                 } else {
                     if ($(this).click !== undefined) {
-                        var ele=$(this);
-                        setTimeout(function(){ ele.click();},300);
-                       
+                        var ele = $(this);
+                        setTimeout(function () { ele.click(); }, 300);
+
                     }
                 }
             });
 
-            main_fab_btn.focusout(function(){
+            main_fab_btn.focusout(function () {
                 sub_fab_btns.removeClass('show');
                 overlay = $(".kc_fab_overlay");
                 overlay.remove();
