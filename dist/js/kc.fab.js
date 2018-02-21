@@ -19,7 +19,7 @@
         $.kc = new Object();
     };
 //Render model into string template  
-String.prototype.render = function (model) {
+String.prototype.render = String.prototype.render || function (model) {
     return this.replace(/{{(.+?)}}/g, function (m, p1) {
         return model[p1]
     });
