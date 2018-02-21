@@ -84,11 +84,21 @@
                     if(base.links[i].disabled !==null && typeof base.links[i].disabled !=='undefined' && base.links[i].disabled){
                         disabled=" disabled ";
                     }
+                    var thisEl="(this)";
+                    if(base.links[i].onlyEvent){
+                        thisEl="(event)";
+                    }
+                    if(base.links[i].onlyThis){
+                        thisEl="(this)";
+                    }
+                    if(base.links[i].eventAndThis){
+                        thisEl="(event,this)";
+                    }
                     if (base.links[i].fn) {
                         sub_fab_btns_dom += 
                          "<div><button "+extra_data +" type='button' "+disabled+" " + id_elem + 
                          "  data-link-title='" + base.links[i].title +
-                         "' onclick='" + base.links[i].fn + "(this);' "+
+                         "' onclick='" + base.links[i].fn +thisEl+ ";' "+
                          "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") +  (base.links[i].cssClass ? " "+base.links[i].cssClass : "") +
                          "' "+(base.links[i].cssClass ? "":" style='" + bg_color_style + "'")  +" ><span style='" + color_style + "'>" + base.links[i].icon + "</span>"+
                          "</button></div>";
