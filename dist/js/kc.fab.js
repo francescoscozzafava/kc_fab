@@ -61,7 +61,7 @@
                 main_btn = base.links[0];
                 color_style = (main_btn.color) ? "color:" + main_btn.color + ";" : "";
                 bg_color_style = (main_btn.bgcolor) ? "background-color:" + main_btn.bgcolor + ";" : "";
-                main_btn_dom = "<button data-link-href='" + ((main_btn.url) ? main_btn.url : "") + "' data-link-target='" + ((main_btn.target) ? main_btn.target : "") + "' class='kc_fab_main_btn' style='" + bg_color_style + "'><span style='" + color_style + "'>" + main_btn.icon + "</span></button>";
+                main_btn_dom = "<button data-link-href='" + ((main_btn.url) ? main_btn.url : "") + "' data-link-target='" + ((main_btn.target) ? main_btn.target : "") + "' class='kc_fab_main_btn' style='" + bg_color_style + "'><span style='" + color_style + "'>" + main_btn.icon + "</span><div></div></button>";
 
 
                 sub_fab_btns_dom = "";
@@ -117,15 +117,11 @@
                     }
                     templateButton.append(templateSpan);
                     if (base.links[i].innerFn) {
+                        templateButton.unbind();
+                        templateButton.unbind('click');
                         if (typeof base.links[i].innerFn === 'string')
-                            try {
-                                templateButton.click(eval(base.links[i].innerFn));
-                            } catch (e) {
-
-                            }
-                        else {
-                            templateButton.click(base.links[i].innerFn);
-                        }
+                            try { templateButton.click(eval(base.links[i].innerFn)); } catch (e) {}
+                        else { templateButton.click(base.links[i].innerFn); }
                     } else {
                         if (base.links[i].fn) {
                             var thisEl = "(this)";
@@ -146,29 +142,6 @@
                     }
                     templateDiv.append(templateButton);
                     sub_fab_btns_domContainer.append(templateDiv);
-                    // if (base.links[i].fn) {
-                    //     sub_fab_btns_dom += 
-                    //      "<div><button "+extra_data +" type='button' "+disabled+" " + id_elem + 
-                    //      "  data-link-title='" + base.links[i].title +
-                    //      "' onclick='" + base.links[i].fn +thisEl+ ";' "+
-                    //      "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") + 
-                    //       (base.links[i].cssClass ? " "+base.links[i].cssClass : "") +
-                    //      "' "+(base.links[i].cssClass ? "":" style='" + bg_color_style + "'")  
-                    //      +" ><span style='" + color_style + "'>" + base.links[i].icon + "</span>"+
-                    //      "</button></div>";
-                    // } else {
-                    //     sub_fab_btns_dom += 
-                    //     "<div><button "+ extra_data +" type='button'  "+disabled+" " + id_elem + 
-                    //     " data-link-title='" + base.links[i].title + 
-                    //     "' data-link-href='" + (base.links[i].url ? base.links[i].url : "") + 
-                    //     "' data-link-target='" + ((base.links[i].target) ? base.links[i].target : "") + "' "+
-                    //     "class='sub_fab_btn" + (base.links[i].titleAlwaysOn ? " always" : "") + 
-                    //     (base.links[i].cssClass ? " "+base.links[i].cssClass : "") + 
-                    //     "' "+(base.links[i].cssClass ? "":" style='" + bg_color_style + "'") 
-                    //      +" ><span style='" + color_style + "'>" + base.links[i].icon + "</span>"+
-                    //     "</button></div>";
-                    // }
-                    //qui append
                 };
 
                 base.$el.append(sub_fab_btns_domContainer).append(main_btn_dom);
