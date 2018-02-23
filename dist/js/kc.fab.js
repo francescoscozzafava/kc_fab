@@ -34,6 +34,22 @@
         var main_fab_btn;
         var sub_fab_btns;
 
+        base.close = function () {
+            setTimeout(function () {
+                sub_fab_btns.removeClass('show');
+                overlay = $(".kc_fab_overlay");
+                overlay.remove();
+            }, 150);
+        };
+        base.closeDeferred = function (event,callback) {
+            var defer = $.Deferred();
+            setTimeout(function () {
+                callback(event);
+                defer.resolve(true);
+            }, 50);
+
+            return defer.promise();
+        }
         base.init = function () {
             if (typeof (links) === "undefined" || links === null) {
                 links = [
@@ -62,18 +78,13 @@
                 color_style = (main_btn.color) ? "color:" + main_btn.color + ";" : "";
                 bg_color_style = (main_btn.bgcolor) ? "background-color:" + main_btn.bgcolor + ";" : "";
                 main_btn_dom = "<button data-link-href='" + ((main_btn.url) ? main_btn.url : "") + "' data-link-target='" + ((main_btn.target) ? main_btn.target : "") + "' class='kc_fab_main_btn' style='" + bg_color_style + "'><span style='" + color_style + "'>" + main_btn.icon + "</span><div></div></button>";
-
-
                 sub_fab_btns_dom = "";
                 base.links.shift();
                 var sub_fab_btns_domContainer = $("<div>");
                 sub_fab_btns_domContainer.addClass('sub_fab_btns_wrapper');
-                /* Loop through the remaining links array */
                 for (var i = 0; i < base.links.length; i++) {
                     color_style = (base.links[i].color) ? "color:" + base.links[i].color + ";" : "";
                     bg_color_style = (base.links[i].bgcolor) ? ("background-color:" + base.links[i].bgcolor + ";") : "background:#F44336;";
-
-                    //get element ID if exists
                     id_elem = "";
                     if (typeof (base.links[i].id) != "undefined") {
                         id_elem = "id='" + base.links[i].id + "'";
@@ -117,11 +128,19 @@
                     }
                     templateButton.append(templateSpan);
                     if (base.links[i].innerFn) {
-                        templateButton.unbind();
-                        templateButton.unbind('click');
-                        if (typeof base.links[i].innerFn === 'string')
-                            try { templateButton.click(eval(base.links[i].innerFn)); } catch (e) {}
-                        else { templateButton.click(base.links[i].innerFn); }
+                        if (typeof base.links[i].innerFn === 'string') {
+                            templateButton.data('fxn',eval(base.links[i].innerFn));
+                        }
+                        else {
+                             templateButton.data('fxn',base.links[i].innerFn);
+                        }                       
+                        templateButton.click(function (e) {
+                            base.closeDeferred(e,$(this).data('fxn')).then(function () {
+                                base.close();
+                            }, function (reason) {
+                                console.log('click button error ', reason);
+                            });
+                        });
                     } else {
                         if (base.links[i].fn) {
                             var thisEl = "(this)";
@@ -180,8 +199,6 @@
                     $('body').append('<div class="kc_fab_overlay" ></div>');
                 }
 
-
-
                 if ($(this).find(".ink").length === 0) {
                     $(this).prepend("<span class='ink'></span>");
                 } else {
@@ -211,32 +228,21 @@
                     } else {
                         window.location.href = $(this).attr('data-link-href');
                     }
-                } else {
-                    if ($(this).click !== undefined) {
-                        var ele = $(this);
-                        setTimeout(function () { ele.click(); }, 300);
-
-                    }
                 }
+                setTimeout(function () { base.close(); }, 1000);
             });
+
 
             main_fab_btn.focusout(function () {
-                sub_fab_btns.removeClass('show');
-                overlay = $(".kc_fab_overlay");
-                overlay.remove();
+                setTimeout(function () {
+                    sub_fab_btns.removeClass('show');
+                    overlay = $(".kc_fab_overlay");
+                    overlay.remove();
+                }, 150);
             });
 
-            // Put your initialization code here
         };
 
-        // Sample Function, Uncomment to use
-        // base.functionName = function(paramaters){
-        // 
-        // };
-
-
-
-        // Run initializer
         base.init();
     };
 
@@ -249,5 +255,3 @@
     };
 
 })(jQuery);
-
-
