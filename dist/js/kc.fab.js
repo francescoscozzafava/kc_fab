@@ -49,7 +49,7 @@
             }, 50);
 
             return defer.promise();
-        }
+        };
         base.init = function () {
             if (typeof (links) === "undefined" || links === null) {
                 links = [
