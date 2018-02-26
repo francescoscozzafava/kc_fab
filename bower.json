@@ -1,9 +1,9 @@
 {
-  "name": "kc_fab",
-  "version": "1.0.0",
-  "homepage": "https://github.com/katrincwl/kc_fab",
+  "name": "kc_fab_4lld0n3",
+  "version": "1.0.1",
+  "homepage": "https://github.com/alldone/kc_fab/",
   "authors": [
-    "Mark Luk <katrin.cwl@gmail.com>"
+    "Aldo Panetta <aldo.panetta@gmail.com>"
   ],
   "description": "jQuery plugin to create materialize floating action button easily",
   "main": [

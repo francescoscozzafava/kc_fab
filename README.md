@@ -62,7 +62,7 @@ $('.kc_fab_wrapper').kc_fab(links);
 
 ### Install by [Bower]
 ```nodejs
-bower install kc_fab
+bower install kc_fab_4lld0n3
 ```
 
 License
