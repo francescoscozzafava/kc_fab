@@ -62,7 +62,8 @@
                     {
                         "url": null,
                         "bgcolor": "red",
-                        "icon": "+"
+                        "icon": "+",
+                        'not':'hing'
                     },
                     {
                         "url": "http://www.example.com",
@@ -248,7 +249,7 @@
                 }, 150);
             });
 
-
+ 
             main_fab_btn.focusout(base.close);
          /*   main_fab_btn.mousemove(function (e) {
                 if(!base.opened){
