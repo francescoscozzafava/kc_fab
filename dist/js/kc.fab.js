@@ -38,10 +38,10 @@
             $.when().then(function () {
                 setTimeout(function () {
                     if (!base.clickOnMenuButtons) {
+                        base.opened=false;
                         sub_fab_btns.removeClass('show');
                         overlay = $(".kc_fab_overlay");
-                        overlay.remove();
-                        base.opened=false;
+                        overlay.remove();                        
                     }
                 }, 150);
             }, function (reason) { console.log(reason) });
@@ -52,7 +52,7 @@
             setTimeout(function () {
                 callback(event);
                 defer.resolve(true);
-            }, 150);
+            }, 1);
 
             return defer.promise();
         };
@@ -141,16 +141,28 @@
                         else {
                             templateButton.data('fxn', base.links[i].innerFn);
                         }
-                        templateButton.click(function (e) {
-                            console.log('click n', ++base.clickcount);
+                        templateButton .on('mousedown', function (e) {
+                       // templateButton.click(function (e) {                           
                             if (!base.clickOnMenuButtons) {
                                 base.clickOnMenuButtons = true;
-                                base.closeDeferred(e, $(this).data('fxn')).then(function () {
+                               //  console.time('click');
+                                console.log('click n', ++base.clickcount);                                    
+                              /*        $(this).data('fxn')(e);
+                              $.when().then(function(fsd){
                                     base.clickOnMenuButtons = false;
                                     base.close();
                                 }, function (reason) {
-                                    console.log('click button error ', reason);
                                     base.clickOnMenuButtons = false;
+                                    console.log('click button error ', reason);                                    
+                                });
+                            */
+                              base.closeDeferred(e, $(this).data('fxn')).then(function () {
+                                   // console.timeEnd('click');
+                                    base.clickOnMenuButtons = false;
+                                    base.close();
+                                }, function (reason) {
+                                    base.clickOnMenuButtons = false;
+                                    console.log('click button error ', reason);                                    
                                 });
                             }
                         });
@@ -175,7 +187,6 @@
                     templateDiv.append(templateButton);
                     sub_fab_btns_domContainer.append(templateDiv);
                 };
-
                 base.$el.append(sub_fab_btns_domContainer).append(main_btn_dom);
 
             } else {
@@ -246,49 +257,11 @@
                     if (!base.clickOnMenuButtons) {
                          base.close();
                     } 
-                }, 150);
+                }, 300);
             });
 
  
-            main_fab_btn.focusout(base.close);
-         /*   main_fab_btn.mousemove(function (e) {
-                if(!base.opened){
-                if ($(this).attr('data-link-href').length > 0) {
-                    if ($(this).attr('data-link-target')) {
-                        window.open($(this).attr('data-link-href'), $(this).attr('data-link-target'));
-                    } else {
-                        window.location.href = $(this).attr('data-link-href');
-                    }
-                }
-                sub_fab_btns.toggleClass('show');
-                base.opened=true;
-                if ($(".kc_fab_overlay").length > 0) {
-                    $(".kc_fab_overlay").remove();
-                    main_fab_btn.blur();
-                } else {
-                    $('body').append('<div class="kc_fab_overlay" ></div>');
-                }
-
-                if ($(this).find(".ink").length === 0) {
-                    $(this).prepend("<span class='ink'></span>");
-                } else {
-                    $(this).find(".ink").remove();
-                    $(this).prepend("<span class='ink'></span>");
-                }
-
-                ink = $(this).find(".ink");
-
-                if (!ink.height() && !ink.width()) {
-                    d = Math.max($(this).outerWidth(), $(this).outerHeight());
-                    ink.css({ height: d, width: d });
-                }
-
-                x = e.pageX - $(this).offset().left - ink.width() / 2;
-                y = e.pageY - $(this).offset().top - ink.height() / 2;
-
-                ink.css({ top: y + 'px', left: x + 'px' }).addClass("animate");
-            }
-            });*/
+            main_fab_btn.focusout(base.close);          
         };
 
         base.init();
