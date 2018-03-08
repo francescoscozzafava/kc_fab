@@ -87,8 +87,10 @@
                 main_btn_dom = "<button data-link-href='" + ((main_btn.url) ? main_btn.url : "") + "' data-link-target='" + ((main_btn.target) ? main_btn.target : "") + "' class='kc_fab_main_btn' style='" + bg_color_style + "'><span style='" + color_style + "'>" + main_btn.icon + "</span><div></div></button>";
                 sub_fab_btns_dom = "";
                 base.links.shift();
+
                 var sub_fab_btns_domContainer = $("<div>");
                 sub_fab_btns_domContainer.addClass('sub_fab_btns_wrapper');
+                
                 for (var i = 0; i < base.links.length; i++) {
                     color_style = (base.links[i].color) ? "color:" + base.links[i].color + ";" : "";
                     bg_color_style = (base.links[i].bgcolor) ? ("background-color:" + base.links[i].bgcolor + ";") : "background:#F44336;";

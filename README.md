@@ -1,3 +1,11 @@
+# per creare il min
+gulp minify-js
+
+
+
+
+
+
 # KC FAB
 
 KC FAB is a jQuery plugin to create materialize floating action button easily.
