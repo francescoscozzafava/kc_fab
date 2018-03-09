@@ -4,9 +4,9 @@ git clone https://github.com/cialano/kc_fab.git
 npm install
 #lanciare il progetto
 npm start ( la porta nel server.js)
-# per installare manualmente 
+# per installare manualmente  (gulp globale) 
 npm install express
-npm install gulp
+npm install gulp -g
 npm install gulp-rename
 npm install gulp-js-minify
 # per installare automaticamente 
@@ -14,6 +14,8 @@ posizionarsi sul file package.json e lanciare:
 npm install 
 # per creare il min
 gulp minify-js
+
+
 
 
 
