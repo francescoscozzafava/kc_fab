@@ -11,7 +11,7 @@
  * @version: 1.0
  * @date: 18/3/2015
  * 
- * @modifier: AllDone
+ * @modifier: francesco
  * @date: 09/11/2017
  */
 (function ($) {
@@ -23,7 +23,7 @@
         // To avoid scope issues, use 'base' instead of 'this'
         // to reference this class from internal events and functions.
         var base = this;
-
+var ff= TT || '';
         // Access to jQuery and DOM versions of element
         base.$el = $(el);
         base.el = el;
