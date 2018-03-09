@@ -1,3 +1,9 @@
+#clonare un repo da github ... o da altro repo git 
+git clone https://github.com/cialano/kc_fab.git
+# installare le dipendenze
+npm install
+#lanciare il progetto
+npm start ( la porta nel server.js)
 # per installare manualmente 
 npm install express
 npm install gulp

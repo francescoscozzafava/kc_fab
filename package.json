@@ -17,12 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alldone/kc_fab.git"
+    "url": "git+https://github.com/francescoscozzafava/kc_fab"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alldone/kc_fab/issues"
+    "url": "https://github.com/francescoscozzafava/kc_fab/issues"
   },
-  "homepage": "https://github.com/alldone/kc_fab#readme"
+  "homepage": "https://github.com/francescoscozzafava/kc_fab/kc_fab#readme"
 }
